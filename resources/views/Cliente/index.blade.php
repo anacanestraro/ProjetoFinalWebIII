@@ -14,7 +14,7 @@
             <div class="w-full flex justify-center p-1 mb-4 relative w-full">
                     <x-text-input oninput="filtrarNomes(this.value)" type="text" placeholder="Buscar..."/>
             </div>
-            <div class="grid grid-cols1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
                 <p>{{session('mensagem')}}</p>
                 <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     @foreach($clientes as $cliente)
@@ -30,7 +30,7 @@
                         <div>
                             <div class="-mt-px flex divide-x divide-gray-200">
                                 <div class="flex w-0 flex-1">
-                                    <form action="deletarCliente/{{$cliente->id}}" method="POST" onsubmit="return confirm('TEM CERTEZA?');" class="flex w-0 flex-1">
+                                    <form action="cliente.destroy/{{$cliente->id}}" method="POST" onsubmit="return confirm('TEM CERTEZA?');" class="flex w-0 flex-1">
                                         @csrf 
                                         @method('DELETE')
                                         <x-primary-button class="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900">
@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="-ml-px flex w-0 flex-1">
                                     <x-primary-button class="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900">
-                                        <a href="editarCliente/{{$cliente->id}}" >Editar</a>
+                                        <a href="cliente.edit/{{$cliente->id}}" >Editar</a>
                                     </x-primary-button> 
                                 </div>
                             </div>
