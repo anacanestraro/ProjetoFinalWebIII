@@ -18,9 +18,9 @@
             <p>{{session('mensagem')}}</p>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
                 @foreach($clientes as $cliente)
-                <div class="w-full max-w-sm border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
-                    <div class="flex flex-col items-center pb-10">
-                        <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{$cliente->nome}}</h5>
+                <div class="cliente w-full max-w-sm border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
+                    <div class=" flex flex-col items-center pb-10">
+                        <h5 class="nome mb-1 text-xl font-medium text-gray-900 dark:text-white">{{$cliente->nome}}</h5>
                         <span class="text-sm text-gray-500 dark:text-gray400 px-2">{{$cliente->email}}</span>
                         <div class="flex mt-4 md:mt-6">
                             <a href="cliente.edit/{{$cliente->id}}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white "> Editar</a>
