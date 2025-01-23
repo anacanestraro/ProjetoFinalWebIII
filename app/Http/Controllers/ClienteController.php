@@ -40,6 +40,10 @@ class ClienteController extends Controller
         return view ('cliente.show', compact('cliente'));
     }
 
+    public function edit(Cliente $cliente){
+        return view('cliente.edit', compact('cliente'));
+    }
+
     public function update(Request $request, Cliente $cliente){
         $request->validate([
             'nome' => 'required',
