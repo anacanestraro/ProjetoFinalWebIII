@@ -13,6 +13,10 @@ Route::post('/cadastrarCliente', [ClienteController::class, 'store']);
 
 Route::get('/listarCliente', [ClienteController::class, 'index'])->name('listarCliente');
 
+Route::get('/editarCliente/{id}', [ClienteController::class, 'edit'])->name('editarCliente');
+Route::put('/editarCliente/{id}', [ClienteController::class, 'update'])->name('editarCliente');
+
+
 
 
 Route::get('/socialite/google',[SocialLoginController::class, 'redirectToGoogle'])->name('google.redirect');

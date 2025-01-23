@@ -23,7 +23,7 @@
                         <h5 class="nome mb-1 text-xl font-medium text-gray-900 dark:text-white">{{$cliente->nome}}</h5>
                         <span class="text-sm text-gray-500 dark:text-gray400 px-2">{{$cliente->email}}</span>
                         <div class="flex mt-4 md:mt-6">
-                            <a href="cliente.edit/{{$cliente->id}}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white "> Editar</a>
+                            <a href="editarCliente/{{$cliente->id}}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white "> Editar</a>
                             @csrf
                             @method('DELETE')
                             <form action="cliente.destroy/{{$cliente->id}}" method="POST" onsubmit="return confirm('TEM CERTEZA?');">
