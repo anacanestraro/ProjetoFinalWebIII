@@ -12,7 +12,7 @@
                 </button>
             </div>
             <div class="w-full flex justify-center py-4 mb-4 relative w-full">
-                <x-text-input oninput="filtrarNomes(this.value)" type="text" placeholder="Buscar..." />
+                <x-text-input class="w-full" oninput="filtrarNomes(this.value)" type="text" placeholder="Buscar..." />
             </div>
             <!-- Cards clientes cadastrados -->
             <p>{{session('mensagem')}}</p>
