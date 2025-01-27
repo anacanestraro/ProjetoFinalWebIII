@@ -8,13 +8,23 @@ use App\Http\Controllers\SocialLoginController;
 
 Route::get('/', [HomeController::class, 'home'])->name('home')->middleware('auth');
 
-Route::get('/cadastrarCliente', [ClienteController::class, 'create'])->name('cadastrarCliente')->middleware('auth');
-Route::post('/cadastrarCliente', [ClienteController::class, 'store']);
+Route::resource('cliente', ClienteController::class)->names([
+    'index'=>'cliente.index',
+    'create'=>'cliente.create',
+    'store'=>'cliente.store',
+    'show'=>'cliente.show',
+    'edit'=>'cliente.edit',
+    'update'=>'cliente.update',
+    'destroy'=>'cliente.destroy'
+]);
 
-Route::get('/listarCliente', [ClienteController::class, 'index'])->name('listarCliente');
-
-Route::get('/editarCliente/{id}', [ClienteController::class, 'edit'])->name('editarCliente');
-Route::put('/editarCliente/{id}', [ClienteController::class, 'update'])->name('editarCliente');
+// Route::get('/cadastrarCliente', [ClienteController::class, 'create'])->name('cadastrarCliente')->middleware('auth');
+// Route::post('/cadastrarCliente', [ClienteController::class, 'store']);
+// 
+// Route::get('/listarCliente', [ClienteController::class, 'index'])->name('listarCliente');
+// 
+// Route::get('/editarCliente/{id}', [ClienteController::class, 'edit'])->name('editarCliente');
+// Route::put('/editarCliente/{id}', [ClienteController::class, 'update'])->name('editarCliente');
 
 
 
