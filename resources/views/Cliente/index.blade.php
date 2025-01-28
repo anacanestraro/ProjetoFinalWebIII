@@ -8,14 +8,14 @@
                     <svg class="w-4 h-4 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                     </svg>
-                    <a href="{{ route('cadastrarCliente') }}" class="text-white">Novo Cliente</a>
+                    <a href="{{ route('cliente.create') }}" class="text-white">Novo Cliente</a>
                 </button>
             </div>
             <div class="w-full flex justify-center py-4 mb-4 relative w-full">
                 <x-text-input class="w-full" oninput="filtrarNomes(this.value)" type="text" placeholder="Buscar..." />
             </div>
             <!-- Cards clientes cadastrados -->
-            <p>{{session('mensagem')}}</p>
+            <p class="mb-4 text-x2 font-semibold dark:text-gray-100">{{session('mensagem')}}</p>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
                 @foreach($clientes as $cliente)
                 <div class="cliente w-full max-w-sm border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
@@ -23,14 +23,14 @@
                         <h5 class="nome mb-1 text-xl font-medium text-gray-900 dark:text-white">{{$cliente->nome}}</h5>
                         <span class="text-sm text-gray-500 dark:text-gray400 px-2">{{$cliente->email}}</span>
                         <div class="flex mt-4 md:mt-6">
-                            <a href="editarCliente/{{$cliente->id}}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white "> Editar</a>
+                            <a href="{{ route('cliente.edit', $cliente->id) }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white "> Editar</a>
+                            <form action="{{ route('cliente.destroy', $cliente->id) }}" method="POST" onsubmit="return confirm('TEM CERTEZA?');">
                             @csrf
                             @method('DELETE')
-                            <form action="cliente.destroy/{{$cliente->id}}" method="POST" onsubmit="return confirm('TEM CERTEZA?');">
                                 <button type="submit" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white" >Deletar</button>
                             </form>
                         </div>
-                        <a href="mostrarCliente/{{$cliente->id}}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white "> Visualizar detalhes</a>
+                        <a href="{{ route('cliente.show', $cliente->id) }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white "> Visualizar detalhes</a>
                     </div>
 
                 </div>

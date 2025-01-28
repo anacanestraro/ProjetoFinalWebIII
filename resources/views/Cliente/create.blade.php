@@ -1,7 +1,7 @@
 @section('title', 'Cadastrar Cliente')
 <x-app-layout>
 
-<form action="/cadastrarCliente" method="post">
+<form action="{{ route('cliente.store') }}" method="post">
     @csrf
     <p>{{session('mensagem')}}</p>
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
@@ -44,7 +44,7 @@
         
             <div class="flex items-center justify-end mt-4">
         
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('listarCliente') }}" >Listar Clientes</a>
+                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('cliente.index') }}" >Listar Clientes</a>
         
                 <x-primary-button class="ms-4">
                     {{ __('Cadastrar') }}

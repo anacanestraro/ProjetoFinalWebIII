@@ -30,9 +30,9 @@ class ClienteController extends Controller
         $status = Cliente::create($request->all());
 
         if($status){
-            return redirect()->route('listarCliente')->with('mensagem', 'Cliente cadastrado com sucesso!');;
+            return redirect()->route('cliente.index')->with('mensagem', 'Cliente cadastrado com sucesso!');
         }else{
-            return redirect()->route('listarCliente')->with('mensagem', 'Erro ao cadastrar o cliente. Tente novamente.');
+            return redirect()->with('mensagem', 'Erro ao cadastrar o cliente. Tente novamente.');
         }
     }
 
@@ -57,9 +57,9 @@ class ClienteController extends Controller
 
        
         if($status){
-            return redirect()->route('listarCliente')->with('mensagem', 'Cliente atualizado com sucesso!');;
+            return redirect()->route('cliente.index')->with('mensagem', 'Cliente atualizado com sucesso!');
         }else{
-            return redirect()->route('listarCliente')->with('mensagem', 'Erro ao atualizar o cliente. Tente novamente.');
+            return redirect()->route('cliente.index')->with('mensagem', 'Erro ao atualizar o cliente. Tente novamente.');
         }
 
     }
@@ -69,9 +69,9 @@ class ClienteController extends Controller
         $status = $cliente->delete();
 
         if($status){
-            return redirect()->route('listarCliente')->with('mensagem', 'Cliente deletado com sucesso!');;
+            return redirect()->route('cliente.index')->with('mensagem', 'Cliente deletado com sucesso!');
         }else{
-            return redirect()->route('listarCliente')->with('mensagem', 'Erro ao deletar o cliente. Tente novamente.');
+            return redirect()->route('cliente.index')->with('mensagem', 'Erro ao deletar o cliente. Tente novamente.');
         }
     }
 }
