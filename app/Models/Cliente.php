@@ -14,6 +14,11 @@ class Cliente extends Model
         'cpf',
         'telefone',
         'email',
-        'cep'
+        'endereco_id'
     ];
+
+    public function endereco(){
+        return $this->belongsTo(Endereco::class);
+    }
+
 }

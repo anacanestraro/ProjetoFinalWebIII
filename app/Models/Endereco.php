@@ -7,13 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Endereco extends Model
 {
     protected $fillable = [
-        'cliente_id',
+        'cep',
         'rua', 
-        'cidade',   
-        'estado',
+        'cidade',  
+        'numero', 
         'bairro',
-        'uf',
-        'complemento'
+        'uf'
     ];
+
+    public function clientes(){
+        return $this->hasMany(Cliente::class);
+    }
 
 }

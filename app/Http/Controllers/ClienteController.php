@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
-use GuzzleHttp\Client;
+use App\Models\Endereco;
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
@@ -11,6 +11,11 @@ class ClienteController extends Controller
 
     public function index(){
         $clientes = Cliente::all();
+
+        if ($clientes->isEmpty()) {
+            session()->flash('mensagem', 'Nenhum cliente cadastrado.');
+        }
+
         return view('cliente.index', compact('clientes'));
     }
 
@@ -19,20 +24,40 @@ class ClienteController extends Controller
     }
 
     public function store(Request $request){
-        $request->validate([
+        $validated = $request->validate([
             'nome' => 'required',
             'cpf' => 'required|unique:clientes',
             'telefone' => 'required',
             'cep' => 'required',
             'email' => 'required|email',
+            'rua' => 'required|string|max:255',
+            'numero' => 'required|string|max:10',
+            'bairro' => 'required|string|max:255',
+            'cidade' => 'required|string|max:255',
+            'uf' => 'required|string|max:2',
         ]);
 
-        $status = Cliente::create($request->all());
+        $endereco = Endereco::firstOrCreate([
+            'cep' => $validated['cep'],
+            'rua' => $validated['rua'],
+            'numero' => $validated['numero'],
+            'bairro' => $validated['bairro'],
+            'cidade' => $validated['cidade'],
+            'uf' => $validated['uf'],
+        ]);
+
+        $status = Cliente::create([
+            'nome' => $validated['nome'],
+            'cpf' => $validated['cpf'],
+            'telefone' => $validated['telefone'],
+            'email' => $validated['email'],
+            'endereco_id' => $endereco->id,
+        ]);
 
         if($status){
             return redirect()->route('cliente.index')->with('mensagem', 'Cliente cadastrado com sucesso!');
         }else{
-            return redirect()->with('mensagem', 'Erro ao cadastrar o cliente. Tente novamente.');
+            return back()->with('mensagem', 'Erro ao cadastrar o cliente. Tente novamente.');
         }
     }
 
@@ -46,16 +71,37 @@ class ClienteController extends Controller
 
     public function update(Request $request, Cliente $cliente){
         $request->validate([
-            'nome' => 'required',
-            'cpf' => 'required|unique:clientes,cpf,' . $cliente->id,
-            'telefone' => 'required',
-            'cep' => 'required',
-            'email' => 'required|email',
+            'nome' => 'required|max:255',
+            'cpf' => 'required|max:15|unique:clientes',
+            'email' => 'required|max:255|unique:clientes',
+            'telefone' => 'required|max:50',
+            'cep' => 'required|min:9',
+            'uf' => 'required|max:2',
+            'cidade' => 'required|max:255',
+            'bairro' => 'required|max:255',
+            'rua' => 'required|max:255',
+            'numero' => 'required|max:20',
         ]);
 
-        $status = $cliente->update($request->all());
+        $status = $cliente->update([
+            'nome' => $request->nome,
+            'cpf' => $request->cpf,
+            'telefone' => $request->telefone,
+            'email' => $request->email,
+        ]);
 
-       
+        $endereco = Endereco::firstOrCreate([
+            'cep' => $request->cep,
+            'rua' => $request->rua,
+            'uf' => $request->uf,
+            'cidade' => $request->cidade,
+            'bairro' => $request->bairro,
+            'numero' => $request->numero,
+
+        ]);
+
+        $cliente->endereco()->associate($endereco);
+
         if($status){
             return redirect()->route('cliente.index')->with('mensagem', 'Cliente atualizado com sucesso!');
         }else{
