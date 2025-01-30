@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -18,13 +19,15 @@ Route::resource('cliente', ClienteController::class)->names([
     'destroy'=>'cliente.destroy'
 ]);
 
-// Route::get('/cadastrarCliente', [ClienteController::class, 'create'])->name('cadastrarCliente')->middleware('auth');
-// Route::post('/cadastrarCliente', [ClienteController::class, 'store']);
-// 
-// Route::get('/listarCliente', [ClienteController::class, 'index'])->name('listarCliente');
-// 
-// Route::get('/editarCliente/{id}', [ClienteController::class, 'edit'])->name('editarCliente');
-// Route::put('/editarCliente/{id}', [ClienteController::class, 'update'])->name('editarCliente');
+Route::resource('categoria', CategoriaController::class)->parameters(['categoria' => 'categoria'])->names([
+    'index'=>'categoria.index',
+    'create'=>'categoria.create',
+    'store'=>'categoria.store',
+    'show'=>'categoria.show',
+    'edit'=>'categoria.edit',
+    'update'=>'categoria.update',
+    'destroy'=>'categoria.destroy'
+]);
 
 
 
