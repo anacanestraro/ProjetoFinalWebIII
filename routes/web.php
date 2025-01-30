@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\UnidadeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -29,7 +30,15 @@ Route::resource('categoria', CategoriaController::class)->parameters(['categoria
     'destroy'=>'categoria.destroy'
 ]);
 
-
+Route::resource('unidade', UnidadeController::class)->parameters(['unidade' => 'unidade'])->names([
+    'index'=>'unidade.index',
+    'create'=>'unidade.create',
+    'store'=>'unidade.store',
+    'show'=>'unidade.show',
+    'edit'=>'unidade.edit',
+    'update'=>'unidade.update',
+    'destroy'=>'unidade.destroy'
+]);
 
 
 Route::get('/socialite/google',[SocialLoginController::class, 'redirectToGoogle'])->name('google.redirect');
