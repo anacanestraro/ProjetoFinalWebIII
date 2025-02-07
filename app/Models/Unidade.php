@@ -14,4 +14,8 @@ class Unidade extends Model
         'descricao'
     ];
 
+    public function produtos(){
+        return $this->hasMany(Produto::class);
+    } 
+
 }
