@@ -27,7 +27,7 @@
         
             <div class="mt-4">
                 <x-input-label for="estoque" :value="__('Estoque')" />
-                <x-text-input id="estoque" class="block mt-1 w-full" type="estoque" name="estoque" :value="old('estoque')"/>
+                <x-text-input id="estoque" class="block mt-1 w-full" type="text" name="estoque" :value="old('estoque')"/>
             </div>
 
             <div class="mt-4">
@@ -37,7 +37,7 @@
             
             <div class="mt-4">
                 <x-input-label for="valorUnitario" :value="__('Valor Unitário')"/>
-                <x-text-input id="valorUnitario" class="block mt-1 w-full" type="text" name="valorUnitario" :value="old('valorUnitario')" required autocomplete="valorUnitario"/>
+                <x-text-input id="valorUnitario" class="block mt-1 w-full" type="text" name="valorUnitario" step="0.01" min="0.01" :value="old('valorUnitario')" required autocomplete="valorUnitario"/>
             </div>
 
             <div class="mt-4">
@@ -59,7 +59,7 @@
             </div>
             <div class="flex items-center justify-end mt-4">
         
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('produto.index') }}" >Listar Clientes</a>
+                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('produto.index') }}" >Listar Produtos</a>
         
                 <x-primary-button class="ms-4">
                     {{ __('Cadastrar') }}

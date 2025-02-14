@@ -29,12 +29,16 @@ class ProdutoController extends Controller
 
     public function store(Request $request){
 
+        $request->merge([
+            'valorUnitario' => str_replace(',', '.', $request->valorUnitario),
+        ]);
+
         $request->validate([
             'nome' => 'required|string|max:255',
             'imagem' => 'required|image|image:2048',
             'estoque' => 'required|integer',
             'descricao' => 'required|string',
-            'valorUnitario' => 'required|numeric',
+            'valorUnitario' => 'required|decimal:2',
             'id_unidade' => 'required|exists:unidades,id',
             'id_categoria' => 'required|exists:categorias,id',
         ]);
@@ -76,7 +80,7 @@ class ProdutoController extends Controller
             'imagem' => 'nullable|image|max:2048',
             'estoque' => 'required|integer',
             'descricao' => 'required|string',
-            'valorUnitario' => 'required|numeric',
+            'valorUnitario' => 'required|decimal:2',
             'id_unidade' => 'required|exists:unidades,id',
             'id_categoria' => 'required|exists:categorias,id',
         ]);
