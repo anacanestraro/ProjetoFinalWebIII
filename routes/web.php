@@ -6,6 +6,8 @@ use App\Http\Controllers\UnidadeController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RetiradaController;
+use App\Http\Controllers\RelatorioController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SocialLoginController;
 
@@ -50,6 +52,20 @@ Route::resource('produto', ProdutoController::class)->parameters(['produto' => '
     'update'=>'produto.update',
     'destroy'=>'produto.destroy'
 ]);
+
+Route::resource('retirada', RetiradaController::class)->parameters(['retirada' => 'retirada'])->names([
+    'index'=>'retirada.index',
+    'create'=>'retirada.create',
+    'store'=>'retirada.store',
+    'show'=>'retirada.show',
+    'edit'=>'retirada.edit',
+    'update'=>'retirada.update',
+    'destroy'=>'retirada.destroy'
+]);
+
+Route::get('produtosSemEstoque', [RelatorioController::class, 'produtosSemEstoque'])->name('produtosSemEstoque');
+Route::get('retiradasPorCliente', [RelatorioController::class, 'retiradasPorCliente'])->name('retiradasPorCliente');
+Route::get('/retirada/{id}/ticket', [RetiradaController::class, 'ticket'])->name('retirada.ticket');
 
 
 Route::get('/socialite/google',[SocialLoginController::class, 'redirectToGoogle'])->name('google.redirect');
