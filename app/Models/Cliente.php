@@ -21,4 +21,9 @@ class Cliente extends Model
         return $this->belongsTo(Endereco::class);
     }
 
+    public function retiradas()
+{
+    return $this->hasMany(Retirada::class, 'id_cliente');
+}
+
 }
