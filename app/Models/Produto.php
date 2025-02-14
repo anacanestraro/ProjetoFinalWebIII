@@ -26,4 +26,10 @@ class Produto extends Model
     public function categoria(){
         return $this->belongsTo(Categoria::class, 'id_categoria');
     }
+
+    public function retiradas(){
+        return $this->belongsToMany(Retirada::class, 'retirada_produtos')
+        ->withPivot('quantidade', 'valorUnitario')
+        ->withTimestamps();
+    }
 }
