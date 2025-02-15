@@ -17,7 +17,7 @@
                     <x-text-input class="block mt-1 w-full" type="text" name="cpf" value="{{$cliente->cpf}}"/>
 
                     <x-input-label class="mt-4"> Cep: </x-input-label>
-                    <x-text-input class="block mt-1 w-full" type="text" name="cep" value="{{$cliente->cep}}"/>
+                    <x-text-input class="block mt-1 w-full" type="text" name="cep" value="{{$cliente->endereco->cep}}"/>
 
                     <x-input-label class="mt-4"> Telefone: </x-input-label>
                     <x-text-input class="block mt-1 w-full" type="text" name="telefone" value="{{$cliente->telefone}}"/>

@@ -10,6 +10,13 @@
             <x-input-label class="mt-4">CPF: {{$cliente->cpf}}</x-input-label>
             <x-input-label class="mt-4">Telefone: {{$cliente->telefone}}</x-input-label>
             <x-input-label class="mt-4">E-mail: {{$cliente->email}}</x-input-label>
+            <x-input-label class="mt-4">CEP: {{$cliente->endereco->cep}}</x-input-label>
+            <x-input-label class="mt-4">Rua: {{$cliente->endereco->rua}}</x-input-label>
+            <x-input-label class="mt-4">Número: {{$cliente->endereco->numero}}</x-input-label>
+            <x-input-label class="mt-4">Bairro: {{$cliente->endereco->bairro}}</x-input-label>
+            <x-input-label class="mt-4">Cidade: {{$cliente->endereco->cidade}}</x-input-label>
+            <x-input-label class="mt-4">UF: {{$cliente->endereco->uf}}</x-input-label>
+
            
             
             <div class="flex items-center justify-center mt-4">
