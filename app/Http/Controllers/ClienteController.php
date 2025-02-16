@@ -26,7 +26,7 @@ class ClienteController extends Controller
     public function store(Request $request){
         $validated = $request->validate([
             'nome' => 'required',
-            'cpf' => 'required|unique:clientes',
+            'cpf' => 'required|digits:11|unique:clientes',
             'telefone' => 'required',
             'cep' => 'required',
             'email' => 'required|email',

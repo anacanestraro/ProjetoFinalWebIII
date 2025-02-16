@@ -15,10 +15,10 @@ return new class extends Migration
         Schema::create('clientes', function (Blueprint $table) {
             $table->id();
             $table->string('nome', 255);
-            $table->string('cpf', 40);
-            $table->string('telefone', 40);
-            $table->string('email', 255);
-            $table->foreignIdFor(Endereco::class)->onDelete('cascade');
+            $table->char('cpf', 11);
+            $table->string('telefone', 20);
+            $table->string('email', 255)->unique();
+            $table->foreignIdFor(Endereco::class)->nullable()->contrained('enderecos')->onDelete('cascade');
             $table->timestamps();
         });
     }
