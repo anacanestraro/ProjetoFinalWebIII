@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('enderecos', function (Blueprint $table) {
             $table->id();
-            $table->string('cep', 9);
-            $table->string('rua', 255);
+            $table->char('cep', 8);
+            $table->string('rua', 100);
             $table->string('cidade', 40);
-            $table->string('numero', 40);
-            $table->string('bairro', 255);
-            $table->string('uf', 2);
+            $table->string('numero', 10);
+            $table->string('bairro', 100);
+            $table->char('uf', 2);
             $table->timestamps();
         });
 
