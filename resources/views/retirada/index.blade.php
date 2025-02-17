@@ -58,6 +58,8 @@
     </div>
 </x-app-layout>
 <script>
+
+    // Função para a busca por nome do cliente.
     function filtrarNomes(valor) { // recebendo o valor que é colocado no input
         const linhas = document.querySelectorAll(".retirada"); // seleciona as linhas da tabela que possuem a classe retirada
         linhas.forEach(linha => {
