@@ -19,13 +19,16 @@
 
            
             
-            <div class="flex items-center justify-center mt-4">
+            <div class="flex items-center justify-center gap-6 mt-4">
                 <form action="{{ route('cliente.destroy', $cliente->id) }}" method="POST" onsubmit="return confirm('TEM CERTEZA?');">
                     @csrf 
                     @method('DELETE')
                     <x-primary-button type="submit">Deletar</x-primary-button>
                 </form>
-                <a href="{{ route('cliente.edit', $cliente->id) }}" >Editar</a>
+                <x-primary-button>
+                    <a href="{{ route('cliente.edit', $cliente->id) }}" >Editar</a>
+                </x-primary-button>
+
             </div>
         </div>
     </div>

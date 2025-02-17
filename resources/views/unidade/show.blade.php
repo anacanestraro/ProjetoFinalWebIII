@@ -10,13 +10,15 @@
             <x-input-label class="mt-4">Descrição: {{$unidade->descricao}}</x-input-label>
            
             
-            <div class="flex items-center justify-center mt-4">
+            <div class="flex items-center justify-center gap-6 mt-4">
                 <form action="{{ route('unidade.destroy', $unidade->id) }}" method="POST" onsubmit="return confirm('TEM CERTEZA?');">
                     @csrf 
                     @method('DELETE')
                     <x-primary-button type="submit">Deletar</x-primary-button>
                 </form>
-                <a href="{{ route('unidade.edit', $unidade->id) }}" >Editar</a>
+                <x-primary-button>
+                    <a href="{{ route('unidade.edit', $unidade->id) }}" >Editar</a>
+                </x-primary-button>
             </div>
         </div>
     </div>

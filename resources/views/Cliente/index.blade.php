@@ -40,6 +40,7 @@
     </div>
 </x-app-layout>
 <script>
+    // Função para a busca por nome do cliente
     function filtrarNomes(valor) { // recebendo o valor que é colocado no input
         const linhas = document.querySelectorAll(".cliente"); // seleciona as linhas da tabela que possuem a classe cliente
         linhas.forEach(linha => {
@@ -47,4 +48,6 @@
             linha.style.display = nome.includes(valor.toLowerCase()) ? "" : "none";
         });
     }
+
+    
 </script>
