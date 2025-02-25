@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nome');
             $table->string('imagem');
             $table->integer('estoque');
+            $table->integer('estoqueInicial');
             $table->text('descricao');
             $table->decimal('valorUnitario', 10,2);
             $table->foreignId('id_unidade')->constrained('unidades');
