@@ -27,7 +27,7 @@ class ClienteController extends Controller
         $validated = $request->validate([
             'nome' => 'required',
             'cpf' => 'required|digits:11|unique:clientes',
-            'telefone' => 'required',
+            'telefone' => 'required|digits:11',
             'cep' => 'required',
             'email' => 'required|email',
             'rua' => 'required|string|max:255',
