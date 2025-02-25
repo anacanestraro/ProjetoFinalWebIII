@@ -64,6 +64,7 @@ Route::resource('retirada', RetiradaController::class)->parameters(['retirada' =
 ]);
 
 Route::get('produtosSemEstoque', [RelatorioController::class, 'produtosSemEstoque'])->name('produtosSemEstoque');
+Route::get('produtosComEstoque', [RelatorioController::class, 'produtosComEstoque'])->name('produtosComEstoque');
 Route::get('retiradasPorCliente', [RelatorioController::class, 'retiradasPorCliente'])->name('retiradasPorCliente');
 Route::get('/retirada/{id}/ticket', [RetiradaController::class, 'ticket'])->name('retirada.ticket');
 

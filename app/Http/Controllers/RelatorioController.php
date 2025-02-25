@@ -31,6 +31,17 @@ class RelatorioController extends Controller{
         return $pdf->stream('produtosSemEstoque');
     }
 
+    public function produtosComEstoque(){
+        $produtos = Produto::query()
+        ->join('retirada_produtos', 'retirada_produtos.produto_id', '=', 'produtos.id')
+        ->join('retiradas', 'retiradas.id', '=', 'retirada_produtos.retirada_id')
+        ->where('produtos.estoque', '!=', '0')
+        ->get();
+
+        $pdf = Pdf::loadView('relatorios.produtosComEstoque', compact('produtos'));
+        return $pdf->stream('produtosComEstoque');
+    }
+
     public function retiradasPorCliente()
     {
     $clientes = Cliente::whereHas('retiradas')->with(['retiradas.produtos'])->get();

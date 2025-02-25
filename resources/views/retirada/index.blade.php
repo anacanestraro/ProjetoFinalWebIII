@@ -19,9 +19,13 @@
                             <x-dropdown-link href="produtosSemEstoque">
                                 Produtos Sem Estoque
                             </x-dropdown-link>
+                            <x-dropdown-link href="produtosComEstoque">
+                                Produtos Com Estoque
+                            </x-dropdown-link>
                             <x-dropdown-link href="retiradasPorCliente">
                                 Retiradas Por Cliente
                             </x-dropdown-link>
+                            
                         </x-slot>
                     </x-dropdown>
                 </div>
