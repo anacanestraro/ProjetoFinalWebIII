@@ -7,52 +7,47 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Cliente;
 use App\Models\Produto;
 
-class RelatorioController extends Controller{
-    public function produtosSemEstoque(){
-        $produtos = Produto::query()
-        ->join('retirada_produtos', 'retirada_produtos.produto_id', '=', 'produtos.id')
-        ->join('retiradas', 'retiradas.id', '=', 'retirada_produtos.retirada_id')
-        ->where('produtos.estoque', '=', '0')
-        ->selectRaw('produtos.*, retiradas.dataRetirada as dataRetirada')
-        ->groupBy('retiradas.dataRetirada')
-        ->groupBy('produtos.id')
-        ->groupBy('produtos.imagem')
-        ->groupBy('produtos.estoque')
-        ->groupBy('produtos.descricao')
-        ->groupBy('produtos.nome')
-        ->groupBy('produtos.valorUnitario')
-        ->groupBy('produtos.id_unidade')
-        ->groupBy('produtos.id_categoria')
-        ->groupBy('produtos.created_at')
-        ->groupBy('produtos.updated_at')
-        ->orderByDesc('retiradas.dataRetirada')->get();
+class RelatorioController extends Controller
+{
+    public function produtosSemEstoque()
+    {
+        $produtos = Produto::with(['categoria', 'unidade'])
+            ->where('estoque', 0)
+            ->orWhereNull('estoque')
+            ->orderBy('nome')
+            ->get();
 
-        $pdf = Pdf::loadView('relatorios.produtosSemEstoque', compact('produtos'));
-        return $pdf->stream('produtosSemEstoque');
+        $geradoEm = now()->format('d/m/Y H:i');
+
+        $pdf = Pdf::loadView('relatorios.produtosSemEstoque', compact('produtos', 'geradoEm'));
+        return $pdf->stream('produtos-sem-estoque.pdf');
     }
 
-    public function produtosComEstoque(){
-        $produtos = Produto::query()
-        ->join('retirada_produtos', 'retirada_produtos.produto_id', '=', 'produtos.id')
-        ->join('retiradas', 'retiradas.id', '=', 'retirada_produtos.retirada_id')
-        ->where('produtos.estoque', '!=', '0')
-        ->get();
+    public function produtosComEstoque()
+    {
+        $produtos = Produto::with(['categoria', 'unidade'])
+            ->where('estoque', '>', 0)
+            ->orderBy('nome')
+            ->get();
 
-        $pdf = Pdf::loadView('relatorios.produtosComEstoque', compact('produtos'));
-        return $pdf->stream('produtosComEstoque');
+        $geradoEm = now()->format('d/m/Y H:i');
+
+        $pdf = Pdf::loadView('relatorios.produtosComEstoque', compact('produtos', 'geradoEm'));
+        return $pdf->stream('produtos-com-estoque.pdf');
     }
 
     public function retiradasPorCliente()
     {
-    $clientes = Cliente::whereHas('retiradas')->with(['retiradas.produtos'])->get();
+        $clientes = Cliente::whereHas('retiradas')
+            ->with(['retiradas' => function ($q) {
+                $q->orderByDesc('dataRetirada');
+            }, 'retiradas.produtos'])
+            ->orderBy('nome')
+            ->get();
 
-    foreach ($clientes as $cliente) {
-        $cliente->retiradas = $cliente->retiradas->sortByDesc('dataRetirada');
+        $geradoEm = now()->format('d/m/Y H:i');
+
+        $pdf = Pdf::loadView('relatorios.retiradasPorCliente', compact('clientes', 'geradoEm'));
+        return $pdf->stream('retiradas-por-cliente.pdf');
     }
-
-    $pdf = Pdf::loadView('relatorios.retiradasPorCliente', compact('clientes'));
-
-    return $pdf->stream('retiradasPorCliente.pdf');
-    }
-
 }
