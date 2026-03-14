@@ -8,12 +8,7 @@ use Illuminate\Http\Request;
 class UnidadeController extends Controller
 {
     public function index(){
-        $unidades = Unidade::all();
-
-        if($unidades->isEmpty()){
-            session()->flash('mensagem', 'Nenhuma unidade cadastrada.');
-        }
-
+        $unidades = Unidade::paginate(15);
         return view('unidade.index', compact('unidades'));
     }
 
@@ -23,22 +18,12 @@ class UnidadeController extends Controller
 
     public function store(Request $request){
         $validated = $request->validate([
-            'sigla' => 'required',
-            'descricao' => 'required'
+            'sigla'    => 'required',
+            'descricao'=> 'required',
         ]);
 
-        $status = Unidade::create([
-            'sigla' => $validated['sigla'],
-            'descricao' => $validated['descricao'] 
-        ]);
-
-        if($status){
-            return redirect()->route('unidade.index')->with('mensagem', 'Unidade cadastrada com sucesso!');
-
-        }else{
-            return back()->with('mensagem', 'Erro ao cadastrar unidade. Tente novamente!');
-
-        }
+        Unidade::create($validated);
+        return redirect()->route('unidade.index')->with('mensagem', 'Unidade cadastrada com sucesso!');
     }
 
     public function show(Unidade $unidade){
@@ -51,31 +36,20 @@ class UnidadeController extends Controller
 
     public function update(Unidade $unidade, Request $request){
         $request->validate([
-            'sigla' => 'required',
-            'descricao' => 'required'
+            'sigla'    => 'required',
+            'descricao'=> 'required',
         ]);
 
-        $status = $unidade->update([
-            'sigla' => $request->sigla,
-            'descricao' => $request->descricao
+        $unidade->update([
+            'sigla'    => $request->sigla,
+            'descricao'=> $request->descricao,
         ]);
 
-        if($status){
-            return redirect()->route('unidade.index')->with('mensagem', 'Unidade atualizada com sucesso!');
-
-        }else{
-            return back()->with('mensagem', 'Erro ao atualizar unidade. Tente novamente.');
-        }
+        return redirect()->route('unidade.index')->with('mensagem', 'Unidade atualizada com sucesso!');
     }
 
     public function destroy(Unidade $unidade){
-        $status = $unidade->delete();
-
-        if($status){
-            return redirect()->route('unidade.index')->with('mensagem', 'Unidade deletada com sucesso.');
-
-        }else{
-            return back()->with('mensagem', 'Erro ao deletar unidade. Tente novamente.');
-        }
+        $unidade->delete();
+        return redirect()->route('unidade.index')->with('mensagem', 'Unidade deletada com sucesso.');
     }
 }
