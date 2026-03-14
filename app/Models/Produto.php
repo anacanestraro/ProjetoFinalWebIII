@@ -13,6 +13,7 @@ class Produto extends Model
         'nome',
         'imagem',
         'estoque',
+        'estoqueInicial',
         'descricao',
         'valorUnitario',
         'id_unidade',
