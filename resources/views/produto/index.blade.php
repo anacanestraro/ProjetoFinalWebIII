@@ -103,6 +103,7 @@
                     @endforeach
                 </tbody>
             </table>
+        @include('components.pagination', ['paginator' => $produtos])
         </div>
     </div>
 </div>
