@@ -67,7 +67,9 @@ Route::get('produtosSemEstoque', [RelatorioController::class, 'produtosSemEstoqu
 Route::get('produtosComEstoque', [RelatorioController::class, 'produtosComEstoque'])->name('produtosComEstoque');
 Route::get('retiradasPorCliente', [RelatorioController::class, 'retiradasPorCliente'])->name('retiradasPorCliente');
 Route::get('/retirada/{id}/ticket', [RetiradaController::class, 'ticket'])->name('retirada.ticket');
-
+Route::get('movimentacaoEstoque', [RelatorioController::class, 'movimentacaoEstoque'])->name('movimentacaoEstoque');
+Route::get('retiradasPorPeriodo', [RelatorioController::class, 'retiradasPorPeriodo'])->name('retiradasPorPeriodo');
+Route::get('estoqueCritico', [RelatorioController::class, 'estoqueCritico'])->name('estoqueCritico');
 
 Route::get('/socialite/google',[SocialLoginController::class, 'redirectToGoogle'])->name('google.redirect');
 Route::get('/auth/google/callback',[SocialLoginController::class, 'handleGoogleCallback'])->name('google.callback');
