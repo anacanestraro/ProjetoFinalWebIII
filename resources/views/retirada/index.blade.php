@@ -144,6 +144,7 @@
                     @endforeach
                 </tbody>
             </table>
+        @include('components.pagination', ['paginator' => $retiradas])
         </div>
     </div>
 </div>
