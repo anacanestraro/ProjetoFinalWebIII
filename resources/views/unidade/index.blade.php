@@ -74,6 +74,7 @@
                     @endforeach
                 </tbody>
             </table>
+        @include('components.pagination', ['paginator' => $unidades])
         </div>
     </div>
 </div>
