@@ -74,6 +74,7 @@
                     @endforeach
                 </tbody>
             </table>
+        @include('components.pagination', ['paginator' => $categorias])
         </div>
     </div>
 </div>
