@@ -35,7 +35,7 @@ class ProdutoController extends Controller
 
         $request->validate([
             'nome' => 'required|string|max:255',
-            'imagem' => 'required|image|image:2048',
+            'imagem' => 'required|image|max:2048',
             'estoque' => 'required|integer',
             'descricao' => 'required|string',
             'valorUnitario' => 'required|decimal:2',
@@ -49,6 +49,9 @@ class ProdutoController extends Controller
             $requestImagem = $request->file('imagem');
             $extensao = $requestImagem->extension();
             $nomeImagem = md5($requestImagem->getClientOriginalName().strtotime("now")). '.'.$extensao;
+            if (!file_exists(public_path('img/produtos'))) {
+                mkdir(public_path('img/produtos'), 0775, true);
+            }
             $request->imagem->move(public_path('img/produtos'), $nomeImagem);
             $dados['imagem'] = $nomeImagem;
 
@@ -56,6 +59,7 @@ class ProdutoController extends Controller
             $dados['imagem'] = "nulo.jpg";
         }
 
+        $dados['estoqueInicial'] = $dados['estoque'];
         Produto::create($dados);
 
         return redirect()->route('produto.index')->with('success', 'Produto cadastrado com sucesso!');
@@ -96,6 +100,9 @@ class ProdutoController extends Controller
             $requestImagem = $request->file('imagem');
             $extensao = $requestImagem->extension();
             $nomeImagem = md5($requestImagem->getClientOriginalName().strtotime("now")). '.'.$extensao;
+            if (!file_exists(public_path('img/produtos'))) {
+                mkdir(public_path('img/produtos'), 0775, true);
+            }
             $request->imagem->move(public_path('img/produtos'), $nomeImagem);
             $dados['imagem'] = $nomeImagem;
 
