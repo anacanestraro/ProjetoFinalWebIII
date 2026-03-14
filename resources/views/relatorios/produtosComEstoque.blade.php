@@ -34,7 +34,7 @@
     <div class="header">
         <h1>Produtos Com Estoque</h1>
         <div class="header-meta">
-            <span>Sistema de Controle de Estoque — TADS23</span>
+            <span>StockFlow — TADS23</span>
             <span>Gerado em {{ $geradoEm }}</span>
         </div>
     </div>
