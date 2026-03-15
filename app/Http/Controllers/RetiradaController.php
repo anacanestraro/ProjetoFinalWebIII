@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Retirada;
 use App\Models\Produto;
 use App\Models\Cliente;
+use App\Models\Movimentacao;
 
 class RetiradaController extends Controller
 {
@@ -34,19 +36,19 @@ class RetiradaController extends Controller
 
     public function store(Request $request){
         $request->validate([
-            'id_cliente'           => 'required|exists:clientes,id',
-            'dataRetirada'         => 'required|date',
-            'produtos'             => 'required|array',
-            'produtos.*.id'        => 'required|exists:produtos,id',
-            'produtos.*.quantidade'=> 'required|integer|min:1',
+            'id_cliente'            => 'required|exists:clientes,id',
+            'dataRetirada'          => 'required|date',
+            'produtos'              => 'required|array',
+            'produtos.*.id'         => 'required|exists:produtos,id',
+            'produtos.*.quantidade' => 'required|integer|min:1',
         ]);
 
-        foreach ($request->produtos as $produto) {
-            $produtoModel = Produto::find($produto['id']);
-            if ($produtoModel->estoque < $produto['quantidade']) {
+        foreach ($request->produtos as $item) {
+            $produto = Produto::find($item['id']);
+            if ($produto->estoque < $item['quantidade']) {
                 return redirect()->back()
                     ->withInput()
-                    ->withErrors(['produtos' => "Estoque insuficiente para {$produtoModel->nome}. Disponível: {$produtoModel->estoque}"]);
+                    ->withErrors(['produtos' => "Estoque insuficiente para {$produto->nome}. Disponível: {$produto->estoque}"]);
             }
         }
 
@@ -56,13 +58,27 @@ class RetiradaController extends Controller
             'observacao'   => $request->observacao,
         ]);
 
-        foreach ($request->produtos as $produto) {
-            $produtoModel = Produto::find($produto['id']);
-            $retirada->produtos()->attach($produto['id'], [
-                'quantidade'   => $produto['quantidade'],
-                'valorUnitario'=> $produtoModel->valorUnitario,
+        foreach ($request->produtos as $item) {
+            $produto        = Produto::find($item['id']);
+            $estoque_antes  = $produto->estoque;
+            $estoque_depois = $produto->estoque - $item['quantidade'];
+
+            $retirada->produtos()->attach($item['id'], [
+                'quantidade'    => $item['quantidade'],
+                'valorUnitario' => $produto->valorUnitario,
             ]);
-            $produtoModel->decrement('estoque', $produto['quantidade']);
+
+            $produto->decrement('estoque', $item['quantidade']);
+
+            Movimentacao::create([
+                'produto_id'    => $produto->id,
+                'user_id'       => Auth::id(),
+                'tipo'          => 'saida',
+                'quantidade'    => $item['quantidade'],
+                'estoque_antes' => $estoque_antes,
+                'estoque_depois'=> $estoque_depois,
+                'motivo'        => 'Retirada #'.$retirada->id,
+            ]);
         }
 
         return redirect()->route('retirada.index')->with('success', 'Retirada realizada com sucesso!');
