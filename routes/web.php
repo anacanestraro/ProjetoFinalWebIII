@@ -10,6 +10,7 @@ use App\Http\Controllers\RetiradaController;
 use App\Http\Controllers\RelatorioController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SocialLoginController;
+use App\Http\Controllers\MovimentacaoController;
 
 Route::get('/socialite/google', [SocialLoginController::class, 'redirectToGoogle'])->name('google.redirect');
 Route::get('/auth/google/callback', [SocialLoginController::class, 'handleGoogleCallback'])->name('google.callback');
@@ -91,6 +92,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile',    [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile',  [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('movimentacao', [MovimentacaoController::class, 'index'])->name('movimentacao.index');
+    Route::get('movimentacao/produto/{produto}', [MovimentacaoController::class, 'porProduto'])->name('movimentacao.produto');
+    Route::post('movimentacao/entrada', [MovimentacaoController::class, 'entrada'])->name('movimentacao.entrada');
+    
 });
 
 require __DIR__.'/auth.php';
