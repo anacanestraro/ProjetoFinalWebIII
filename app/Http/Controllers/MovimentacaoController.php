@@ -24,7 +24,7 @@ class MovimentacaoController extends Controller
             ->with('user')
             ->paginate(15);
 
-        return view('movimentacao.por_produto', compact('produto', 'movimentacoes'));
+        return view('movimentacao.movimentacaoPorProduto', compact('produto', 'movimentacoes'));
     }
 
     public function entrada(Request $request)
