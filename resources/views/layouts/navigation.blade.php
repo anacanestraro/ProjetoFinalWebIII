@@ -1,12 +1,21 @@
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+    <style>
+        .nav-brand-name { font-size: 0.9rem; font-weight: 700; color: #111827; letter-spacing: 0.04em; }
+        .dark .nav-brand-name { color: #ffffff; }
+        .nav-divider { width: 1px; height: 1.5rem; background: #e5e7eb; flex-shrink: 0; }
+        .dark .nav-divider { background: #374151; }
+    </style>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
 
             {{-- Logo + links --}}
-            <div class="flex items-center gap-8">
-                <a href="{{ route('home') }}" class="shrink-0">
-                    <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+            <div class="flex items-center gap-6">
+                <a href="{{ route('home') }}" style="display:flex; align-items:center; gap:0.625rem; text-decoration:none; flex-shrink:0;">
+                    <img src="{{ asset('favicon.ico') }}" alt="StockFlow" style="height:2rem; width:2rem; object-fit:contain;">
+                    <span class="nav-brand-name" style="color:#ffffff;">StockFlow</span>
                 </a>
+
+                <div class="nav-divider hidden sm:block"></div>
 
                 <div class="hidden sm:flex sm:items-center sm:gap-6">
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">Home</x-nav-link>
