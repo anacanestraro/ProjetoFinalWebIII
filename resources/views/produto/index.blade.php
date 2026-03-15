@@ -92,6 +92,7 @@
                         </td>
                         <td style="text-align:right; white-space:nowrap;">
                             <a href="{{ route('produto.show', $produto->id) }}" class="action-link">Ver</a>
+                            <a href="{{ route('movimentacao.produto', $produto->id) }}" class="action-link" style="color:#16a34a;">Entrada</a>
                             <a href="{{ route('produto.edit', $produto->id) }}" class="action-link">Editar</a>
                             <form action="{{ route('produto.destroy', $produto->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja deletar?');">
                                 @csrf
@@ -103,7 +104,7 @@
                     @endforeach
                 </tbody>
             </table>
-        @include('components.pagination', ['paginator' => $produtos])
+            @include('components.pagination', ['paginator' => $produtos])
         </div>
     </div>
 </div>
