@@ -30,7 +30,11 @@ class Produto extends Model
 
     public function retiradas(){
         return $this->belongsToMany(Retirada::class, 'retirada_produtos')
-        ->withPivot('quantidade', 'valorUnitario')
-        ->withTimestamps();
+            ->withPivot('quantidade', 'valorUnitario')
+            ->withTimestamps();
+    }
+
+    public function movimentacoes(){
+        return $this->hasMany(Movimentacao::class)->latest();
     }
 }
